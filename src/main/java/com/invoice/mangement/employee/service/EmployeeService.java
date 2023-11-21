@@ -5,6 +5,8 @@ import com.invoice.mangement.employee.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeService {
     //Inject Employee Repo
@@ -34,5 +36,9 @@ public class EmployeeService {
     //Delete
     public void deleteEmployee(Long employeeUuid){
         employeeRepo.deleteById(employeeUuid);
+    }
+
+    public List<Employee> getEmployeesByProjectUuid(Long projectUuid){
+        return employeeRepo.findEmployeesByProjectUuid(projectUuid);
     }
 }

@@ -2,17 +2,23 @@ package com.invoice.mangement.company.service;
 
 import com.invoice.mangement.company.model.Company;
 import com.invoice.mangement.company.repository.CompanyRepo;
+import com.invoice.mangement.department.model.Department;
+import com.invoice.mangement.department.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CompanyService {
     //Inject CompanyRepo
     CompanyRepo companyRepo;
+    DepartmentService departmentService;
 
     @Autowired
-    public CompanyService(CompanyRepo companyRepo){
+    public CompanyService(CompanyRepo companyRepo, DepartmentService departmentService) {
         this.companyRepo = companyRepo;
+        this.departmentService = departmentService;
     }
 
     //CRUD
@@ -33,5 +39,14 @@ public class CompanyService {
     //Delete
     public void deleteCompany(Long companyUuid){
         companyRepo.deleteById(companyUuid);
+    }
+
+    public int getCompanyMonthlyCost(Long companyUuid) {
+        List<Department> companyDepartments = departmentService.getDepartmentsByCompanyUuid(companyUuid);
+        int totalCost = 0;
+        for(Department department : companyDepartments){
+            totalCost += departmentService.getDepartmentMonthlyCost(department.getUuid());
+        }
+        return totalCost;
     }
 }

@@ -1,5 +1,6 @@
 package com.invoice.mangement.project.repository;
 
+import com.invoice.mangement.employee.model.Employee;
 import com.invoice.mangement.project.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
