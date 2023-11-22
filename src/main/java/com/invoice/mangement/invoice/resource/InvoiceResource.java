@@ -4,6 +4,8 @@ import com.invoice.mangement.invoice.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+
 @RestController
 @RequestMapping("/invoice")
 public class InvoiceResource {
@@ -28,6 +30,11 @@ public class InvoiceResource {
     @GetMapping("/project/{projectUuid}")
     public int getProjectMonthlyCost(@PathVariable Long projectUuid) {
         return invoiceService.getProjectMonthlyCost(projectUuid);
+    }
+
+    @GetMapping("/generate/{companyUuid}")
+    public void generateInvoice(@PathVariable Long companyUuid) throws FileNotFoundException {
+        invoiceService.generateInvoice(companyUuid);
     }
 
 
